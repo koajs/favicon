@@ -1,0 +1,17 @@
+{
+  "name": "koa-favicon",
+  "description": "favicon bounce middleware for koa",
+  "repository": "koajs/favicon",
+  "version": "1.0.0",
+  "keywords": [
+    "koa",
+    "middleware",
+    "favicon"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {},
+  "dependencies": {},
+  "license": "MIT"
+}
