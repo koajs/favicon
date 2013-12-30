@@ -6,11 +6,8 @@ var app = koa();
 
 app.use(favicon());
 
-app.use(function(next){
-  return function *(){
-    yield next;
-    this.body = 'Hello World';
-  }
+app.use(function *response (next){
+  this.body = 'Hello World';
 });
 
 app.listen(3000);
