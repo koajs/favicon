@@ -19,10 +19,13 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 ```
 
 ## API
+
 ### favicon(path, [options])
+
 Returns a middleware serving the favicon found on the given `path`.
 
 #### options
+
 - `maxAge` cache-control max-age directive in ms, defaulting to 1 day.
 
 ## License
