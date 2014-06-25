@@ -21,7 +21,7 @@ describe('favicon()', function(){
     request(app.listen())
     .get('/')
     .expect('hello', done);
-  })
+  });
   
   it('should 404 if `path` is missing', function(done){
     var app = koa();
@@ -39,7 +39,7 @@ describe('favicon()', function(){
     .post('/favicon.ico')
     .expect('Allow', 'GET, HEAD, OPTIONS')
     .expect(405, done);
-  })
+  });
   
   it('should send the favicon', function(done){
     var body = fs.readFileSync(path);
@@ -52,7 +52,7 @@ describe('favicon()', function(){
     .expect(200)
     .expect('Content-Type', 'image/x-icon')
     .expect(body.toString(), done);
-  })
+  });
   
   it('should set cache-control headers', function(done){
     var app = koa();
@@ -61,7 +61,7 @@ describe('favicon()', function(){
     .get('/favicon.ico')
     .expect('Cache-Control', 'public, max-age=86400')
     .expect(200, done);
-  })
+  });
   
   describe('options.maxAge', function(){
     it('should set max-age', function(done){
@@ -80,7 +80,7 @@ describe('favicon()', function(){
       .get('/favicon.ico')
       .expect('Cache-Control', 'public, max-age=0')
       .expect(200, done);
-    })
+    });
 
     it('should be valid delta-seconds', function(done){
       var app = koa();
@@ -89,7 +89,7 @@ describe('favicon()', function(){
       .get('/favicon.ico')
       .expect('Cache-Control', 'public, max-age=1')
       .expect(200, done);
-    })
+    });
 
     it('should floor at 0', function(done){
       var app = koa();
@@ -98,7 +98,7 @@ describe('favicon()', function(){
       .get('/favicon.ico')
       .expect('Cache-Control', 'public, max-age=0')
       .expect(200, done);
-    })
+    });
 
     it('should ceil at 31556926', function(done){
       var app = koa();
@@ -107,15 +107,15 @@ describe('favicon()', function(){
       .get('/favicon.ico')
       .expect('Cache-Control', 'public, max-age=31556926')
       .expect(200, done);
-    })
+    });
 
-    it('should accept Inifnity', function(done){
+    it('should accept Infinity', function(done){
       var app = koa();
       app.use(favicon(path, { maxAge: Infinity }));
       request(app.listen())
       .get('/favicon.ico')
       .expect('Cache-Control', 'public, max-age=31556926')
       .expect(200, done);
-    })
+    });
   })
 })
