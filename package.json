@@ -12,13 +12,19 @@
     "index.js"
   ],
   "devDependencies": {
+    "istanbul-harmony": "0",
     "should": "~3.3.1",
-    "koa": "~0.6.0",
-    "mocha": "~1.18.2",
-    "supertest": "~0.12.0"
+    "koa": "0",
+    "mocha": "^1.18.2",
+    "supertest": "0"
   },
   "dependencies": {
     "co-fs": "~1.2.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --harmony-generators --require should --reporter spec",
+    "test-cov": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
+    "test-travis": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+  }
 }
