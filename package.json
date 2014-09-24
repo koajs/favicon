@@ -2,7 +2,7 @@
   "name": "koa-favicon",
   "description": "favicon bounce middleware for koa",
   "repository": "koajs/favicon",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "keywords": [
     "koa",
     "middleware",
