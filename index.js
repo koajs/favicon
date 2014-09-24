@@ -4,7 +4,7 @@
  */
 
 var resolve = require('path').resolve;
-var fs = require('co-fs');
+var fs = require('mz/fs');
 
 /**
  * Serve favicon.ico
