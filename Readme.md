@@ -12,8 +12,8 @@ $ npm install koa-favicon
 
 ```js
 var koa = require('koa');
-var favicon = require('koa-favicon');
 var app = koa();
+var favicon = require('koa-favicon');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 ```
