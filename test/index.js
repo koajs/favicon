@@ -9,7 +9,7 @@ const fs = require('fs');
 describe('favicon()', function(){
   const path = join(__dirname, 'fixtures', 'favicon.ico');
 
-  it('should only respond on /favicon.ico', function(done){
+  it('should only respond on /favicon.ico', done => {
     const app = new Koa();
 
     app.use(favicon(path));
@@ -25,7 +25,23 @@ describe('favicon()', function(){
     .expect('hello', done);
   });
 
-  it('should 404 if `path` is missing', function(done){
+  it('should only respond on /favicon.ico if `path` is missing', done => {
+    const app = new Koa();
+
+    app.use(favicon());
+
+    app.use((ctx, next) => {
+      (ctx.body == null).should.be.true;
+      (ctx.get('Content-Type') == '').should.be.true;
+      ctx.body = 'hello';
+    });
+
+    request(app.listen())
+    .get('/')
+    .expect('hello', done);
+  });
+
+  it('should 404 if `path` is missing', done => {
     const app = new Koa();
     app.use(favicon());
     request(app.listen())
@@ -33,7 +49,17 @@ describe('favicon()', function(){
     .expect(404, done);
   });
 
-  it('should not accept POST requests', function(done){
+  it('should accept OPTIONS requests', done => {
+    const app = new Koa();
+    app.use(favicon(path));
+
+    request(app.listen())
+    .options('/favicon.ico')
+    .expect('Allow', 'GET, HEAD, OPTIONS')
+    .expect(200, done);
+  });
+
+  it('should not accept POST requests', done => {
     const app = new Koa();
     app.use(favicon(path));
 
@@ -43,7 +69,7 @@ describe('favicon()', function(){
     .expect(405, done);
   });
 
-  it('should send the favicon', function(done){
+  it('should send the favicon', done => {
     const body = fs.readFileSync(path);
 
     const app = new Koa();
@@ -55,7 +81,7 @@ describe('favicon()', function(){
     .expect(200, body, done);
   });
 
-  it('should set cache-control headers', function(done){
+  it('should set cache-control headers', done => {
     const app = new Koa();
     app.use(favicon(path));
     request(app.listen())
@@ -65,7 +91,7 @@ describe('favicon()', function(){
   });
 
   describe('options.maxAge', function(){
-    it('should set max-age', function(done){
+    it('should set max-age', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: 5000 }));
       request(app.listen())
@@ -74,7 +100,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should accept 0', function(done){
+    it('should accept 0', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: 0 }));
       request(app.listen())
@@ -83,7 +109,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should be valid delta-seconds', function(done){
+    it('should be valid delta-seconds', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: 1234 }));
       request(app.listen())
@@ -92,7 +118,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should floor at 0', function(done){
+    it('should floor at 0', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: -4000 }));
       request(app.listen())
@@ -101,7 +127,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should ceil at 31556926', function(done){
+    it('should ceil at 31556926', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: 900000000000 }));
       request(app.listen())
@@ -110,7 +136,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should accept Infinity', function(done){
+    it('should accept Infinity', done => {
       const app = new Koa();
       app.use(favicon(path, { maxAge: Infinity }));
       request(app.listen())
