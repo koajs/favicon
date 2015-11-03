@@ -1,10 +1,11 @@
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-var resolve = require('path').resolve;
-var fs = require('mz/fs');
+const resolve = require('path').resolve;
+const fs = require('fs');
 
 /**
  * Serve favicon.ico
@@ -16,30 +17,34 @@ var fs = require('mz/fs');
  */
 
 module.exports = function (path, options){
-  var icon;
+  if (!path) {
+    return (ctx, next) => {
+      if ('/favicon.ico' != ctx.path) {
+        return next();
+      }
+    };
+  }
 
-  if (path) path = resolve(path);
+  path = resolve(path);
   options = options || {};
 
-  var maxAge = options.maxAge == null
+  const icon = fs.readFileSync(path);
+  const maxAge = options.maxAge == null
     ? 86400000
     : Math.min(Math.max(0, options.maxAge), 31556926000);
+  const cacheControl = `public, max-age=${maxAge / 1000 | 0}`;
 
-  return function *favicon(next){
-    if ('/favicon.ico' != this.path) return yield next;
-
-    if (!path) return;
-
-    if ('GET' !== this.method && 'HEAD' !== this.method) {
-      this.status = 'OPTIONS' == this.method ? 200 : 405;
-      this.set('Allow', 'GET, HEAD, OPTIONS');
-      return;
+  return (ctx, next) => {
+    if ('/favicon.ico' != ctx.path) {
+      return next();
     }
-
-    if (!icon) icon = yield fs.readFile(path);
-
-    this.set('Cache-Control', 'public, max-age=' + (maxAge / 1000 | 0));
-    this.type = 'image/x-icon';
-    this.body = icon;
+    if ('GET' !== ctx.method && 'HEAD' !== ctx.method) {
+      ctx.status = 'OPTIONS' == ctx.method ? 200 : 405;
+      ctx.set('Allow', 'GET, HEAD, OPTIONS');
+    } else {
+      ctx.set('Cache-Control', cacheControl);
+      ctx.type = 'image/x-icon';
+      ctx.body = icon;
+    }
   };
 };
