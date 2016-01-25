@@ -19,7 +19,7 @@
     "supertest": "0"
   },
   "dependencies": {
-    "mz": "^1.0.0"
+    "mz": "^2.2.0"
   },
   "license": "MIT",
   "scripts": {
