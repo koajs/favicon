@@ -12,6 +12,7 @@
     "index.js"
   ],
   "devDependencies": {
+    "buffer-equal": "^1.0.0",
     "istanbul": "^0.4.2",
     "koa": "^1.0.0",
     "mocha": "^2.0.0",

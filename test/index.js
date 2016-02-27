@@ -1,3 +1,4 @@
+var bufferEqual = require('buffer-equal');
 var request = require('supertest');
 var join = require('path').join;
 var assert = require('assert');
@@ -14,8 +15,8 @@ describe('favicon()', function(){
     app.use(favicon(path));
 
     app.use(function *(next){
-      assert(this.body == null);
-      assert(this.get('Content-Type') == null);
+      assert(!this.body);
+      assert(!this.get('Content-Type'));
       this.body = 'hello';
     });
 
@@ -50,9 +51,13 @@ describe('favicon()', function(){
 
     request(app.listen())
     .get('/favicon.ico')
-    .expect(200)
     .expect('Content-Type', 'image/x-icon')
-    .expect(body.toString(), done);
+    .expect(200, function(err, res){
+      if (err) return done(err);
+
+      assert(bufferEqual(body, res.body));
+      done();
+    });
   });
 
   it('should set cache-control headers', function(done){
