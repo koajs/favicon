@@ -2,6 +2,8 @@
 
  Koa middleware for serving a favicon. Based on [serve-favicon](https://github.com/expressjs/serve-favicon).
 
+ For Koa v1, install `koa-favicon@1`. For Koa v2, install `koa-favicon@2` or `koa-favicon@next`.
+
 ## Installation
 
 ```js
