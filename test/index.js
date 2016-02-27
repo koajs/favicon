@@ -2,6 +2,7 @@
 
 const request = require('supertest');
 const join = require('path').join;
+const assert = require('assert');
 const favicon = require('..');
 const Koa = require('koa');
 const fs = require('fs');
@@ -15,8 +16,8 @@ describe('favicon()', function(){
     app.use(favicon(path));
 
     app.use((ctx, next) => {
-      (ctx.body == null).should.be.true;
-      (ctx.get('Content-Type') == '').should.be.true;
+      assert(!ctx.body);
+      assert(!ctx.get('Content-Type'));
       ctx.body = 'hello';
     });
 
@@ -31,8 +32,9 @@ describe('favicon()', function(){
     app.use(favicon());
 
     app.use((ctx, next) => {
-      (ctx.body == null).should.be.true;
-      (ctx.get('Content-Type') == '').should.be.true;
+      assert(!ctx.body);
+      assert(!ctx.get('Content-Type'));
+
       ctx.body = 'hello';
     });
 
