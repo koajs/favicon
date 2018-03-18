@@ -12,13 +12,13 @@
     "index.js"
   ],
   "devDependencies": {
-    "istanbul": "^0.4.2",
-    "koa": "2.0.0-alpha.3",
-    "mocha": "^2.0.0",
-    "supertest": "^1.0.0"
+    "istanbul": "^0.4.5",
+    "koa": "^2.5.0",
+    "mocha": "^3.5.3",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
-    "mz": "^2.0.0"
+    "mz": "^2.7.0"
   },
   "license": "MIT",
   "scripts": {
