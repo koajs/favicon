@@ -83,6 +83,18 @@ describe('favicon()', function(){
     .expect(200, body, done);
   });
 
+  it('should send the favicon with a different mime type', done => {
+    const body = fs.readFileSync(path);
+
+    const app = new Koa();
+    app.use(favicon(path, {mime: 'image/png'}));
+
+    request(app.listen())
+    .get('/favicon.ico')
+      .expect('Content-Type', 'image/png')
+    .expect(200, body, done);
+  });
+
   it('should set cache-control headers', done => {
     const app = new Koa();
     app.use(favicon(path));
