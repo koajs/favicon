@@ -91,7 +91,7 @@ describe('favicon()', function(){
 
     request(app.listen())
     .get('/favicon.ico')
-      .expect('Content-Type', 'image/png')
+    .expect('Content-Type', 'image/png')
     .expect(200, body, done);
   });
 
