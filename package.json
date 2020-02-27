@@ -13,17 +13,17 @@
   ],
   "devDependencies": {
     "istanbul": "^0.4.5",
-    "koa": "^2.5.0",
-    "mocha": "^3.5.3",
-    "supertest": "^3.0.0"
+    "koa": "^2.11.0",
+    "mocha": "^7.1.0",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "mz": "^2.7.0"
   },
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony --reporter spec",
-    "test-cov": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
-    "test-travis": "NODE_ENV=test node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly"
+    "test": "NODE_ENV=test mocha --reporter spec --exit",
+    "test-cov": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha -- --exit",
+    "test-travis": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --exit"
   }
 }
