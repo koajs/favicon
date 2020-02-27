@@ -1,4 +1,10 @@
 
+2.1.0 / 2020-02-27
+==================
+
+ * Support and test for specifying mime type of icon (#30)
+ * bump deps
+
 2.0.1 / 2018-03-18
 ==================
 
