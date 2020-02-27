@@ -27,6 +27,7 @@ Returns a middleware serving the favicon found on the given `path`.
 #### options
 
 - `maxAge` cache-control max-age directive in ms, defaulting to 1 day.
+- `mime` specify the mime-type of the favicon, defaults to "image/x-icon"
 
 ## License
 

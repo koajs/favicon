@@ -12,6 +12,8 @@ const fs = require('fs');
  *
  * @param {String} path
  * @param {Object} [options]
+ * @param {Number} [options.maxAge=null]
+ * @param {String} [options.mime="image/x-icon"] MIME type of the file at path
  * @return {Function}
  * @api public
  */
@@ -33,6 +35,7 @@ module.exports = function (path, options){
     ? 86400000
     : Math.min(Math.max(0, options.maxAge), 31556926000);
   const cacheControl = `public, max-age=${maxAge / 1000 | 0}`;
+  const mime = options.mime || 'image/x-icon';
 
   return (ctx, next) => {
     if ('/favicon.ico' != ctx.path) {
@@ -46,7 +49,7 @@ module.exports = function (path, options){
       // lazily read the icon
       if (!icon) icon = fs.readFileSync(path);
       ctx.set('Cache-Control', cacheControl);
-      ctx.type = 'image/x-icon';
+      ctx.type = mime;
       ctx.body = icon;
     }
   };
