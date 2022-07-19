@@ -1,3 +1,7 @@
+Unreleased
+=================
+
+ * Remove unused "mz" dependency
 
 2.1.0 / 2020-02-27
 ==================
