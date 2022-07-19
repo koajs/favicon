@@ -17,9 +17,6 @@
     "mocha": "^10.0.0",
     "supertest": "^6.2.4"
   },
-  "dependencies": {
-    "mz": "^2.7.0"
-  },
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test mocha --reporter spec --exit",
